@@ -1,18 +1,9 @@
 const db = {
-    'user': [
-        {
-            id: '1',
-            name: 'Carlos'
-        },
-        {
-            id: '2',
-            name: 'Dario'
-        }
-    ]
+    'user': [],
 };
 
 async function list(tabla) {
-    return db[tabla];
+    return db[tabla] || [];
 }
 async function get(tabla, id) {
     let col = await list(tabla);
@@ -32,9 +23,9 @@ async function remove(tabla, id) {
 }
 async function query(tabla, q) {
     let col = await list(tabla);
-    let keys = Object.keys(q)
+    let keys = Object.keys(q);
     let key = keys[0];
-    return col.filter(item => item[key] === [key])[0] || null;
+    return col.filter(item => item[key] === q[key])[0] || null;
 }
 module.exports = {
     list,

@@ -1,29 +1,31 @@
-const store = require('../../../store/dummy');
-const {nanoid} = require('nanoid');
+const nanoid = require('nanoid');
 const auth = require('../auth');
 
 const TABLA = 'user';
 
 module.exports = function (injectedStore) {
     let store = injectedStore;
-    if(!store) {
+    if (!store) {
         store = require('../../../store/dummy');
     }
 
     function list() {
         return store.list(TABLA);
     }
+
     function get(id) {
         return store.get(TABLA, id);
     }
+
     async function upsert(body) {
         const user = {
             name: body.name,
             username: body.username,
         }
-        if(body.id) {
+
+        if (body.id) {
             user.id = body.id;
-        }else {
+        } else {
             user.id = nanoid();
         }
 
@@ -38,10 +40,9 @@ module.exports = function (injectedStore) {
         return store.upsert(TABLA, user);
     }
 
-
     return {
         list,
         get,
-        upsert
+        upsert,
     };
 }

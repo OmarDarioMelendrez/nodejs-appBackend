@@ -11,6 +11,7 @@ module.exports = function (injectedStore) {
         const data = await store.query(TABLA, { username: username });
         if (data.password === password) {
             // Generar token;
+            // return 'TOKEN'
             return auth.sign(data);
         } else {
             throw new Error('Informacion invalida');

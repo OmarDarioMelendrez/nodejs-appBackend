@@ -5,15 +5,13 @@ const Controller = require('./index');
 
 const router = express.Router();
 
-//ROUTES
-router.get('/', list );
-router.get('/:id', get );
+// Routes
+router.get('/', list)
+router.get('/:id', get);
 router.post('/', upsert);
 router.put('/', upsert);
 
-
-//INTERNAL FUNCTIONS
-
+// Internal functions
 function list(req, res) {
     Controller.list()
         .then((lista) => {
@@ -22,6 +20,7 @@ function list(req, res) {
         .catch((err) => {
             response.error(req, res, err.message, 500);
         });
+    
 }
 
 function get(req, res) {
@@ -32,7 +31,8 @@ function get(req, res) {
         .catch((err) => {
             response.error(req, res, err.message, 500);
         });
-};
+    
+}
 
 function upsert(req, res) {
     Controller.upsert(req.body)
@@ -41,7 +41,8 @@ function upsert(req, res) {
         })
         .catch((err) => {
             response.error(req, res, err.message, 500);
-        })
+        });
+    
 }
 
 module.exports = router;
