@@ -23,7 +23,9 @@ module.exports = function (injectedStore) {
             username: body.username,
         }
 
+        let isUpdate = false;
         if (body.id) {
+            isUpdate = true;
             user.id = body.id;
         } else {
             user.id = nanoid();
@@ -37,7 +39,7 @@ module.exports = function (injectedStore) {
             })
         }
 
-        return store.upsert(TABLA, user);
+        return store.upsert(TABLA, user, isUpdate);
     }
 
     return {
