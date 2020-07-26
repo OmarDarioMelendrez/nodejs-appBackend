@@ -54,6 +54,9 @@ function get(table, id) {
 }
 
 function insert(table, data) {
+    console.log("Tabla: " + table);
+    console.log("Data: " + data);
+
     return new Promise((resolve, reject) => {
         connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
             if (err) return reject(err);
@@ -71,10 +74,12 @@ function update(table, data) {
     })
 }
 
-function upsert(table, data) {
-    if (data && data.id) {
+function upsert(table, data, isUpdate) {
+    if (data && isUpdate) {
+        console.log("UPDATE");
         return update(table, data);
     } else {
+        console.log("INSERT");
         return insert(table, data);
     }
 }
